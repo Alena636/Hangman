@@ -1,0 +1,12 @@
+{
+  "name": "hangman",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "lint": "eslint . --ext .js"
+  },
+  "main": "index.js",
+  "devDependencies": {
+    "eslint": "^8.56.0"
+  }
+}
