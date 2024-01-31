@@ -133,3 +133,22 @@ h4 {
   background-color: darkgray;
 }
 
+@media (max-width: 782px) {
+  .container {
+    flex-direction: column;
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    display: none;
+  }
+
+  .hangman-box img {
+    max-width: 200px;
+  }
+
+  .word-display {
+    align-items: center;
+    justify-content: center;
+  }
+}
