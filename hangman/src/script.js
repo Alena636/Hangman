@@ -47,3 +47,25 @@ function createKeyboard() {
 }
 
 createKeyboard();
+
+function createModal() {
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  const content = document.createElement('div');
+  content.className = 'content';
+  content.innerHTML = '<img src="assets/lost.gif" alt="gif" />';
+  const modalTitle = document.createElement('h4');
+  modalTitle.textContent = 'Game Over!';
+  modalTitle.className = 'modal-title';
+  const modalDescription = document.createElement('p');
+  modalDescription.textContent = 'The correct word is: qwerty';
+  modalDescription.className = 'modal-description';
+  const btnPlayAgain = document.createElement('button');
+  btnPlayAgain.className = 'play-again';
+  btnPlayAgain.textContent = 'Play Again';
+  content.append(modalTitle, modalDescription, btnPlayAgain);
+  modal.append(content);
+  document.body.append(modal);
+}
+
+createModal();
