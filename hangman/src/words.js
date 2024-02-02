@@ -1,6 +1,6 @@
 const wordList = [
   {
-    word: "javascript",
+    word: "javaScript",
     hint: "A high-level programming language commonly used for web development"
   },
   {

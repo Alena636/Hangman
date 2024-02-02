@@ -10,11 +10,9 @@ function createContainer() {
   gameBox.className = 'game-box';
   const wordDisplay = document.createElement('ul');
   wordDisplay.className = 'word-display';
-  const letter = document.createElement('li');
-  letter.className = 'letter';
-  wordDisplay.append(letter);
   const hintText = document.createElement('h4');
-  hintText.textContent = 'Hint: Lorem ipsum dolor sit amet';
+  hintText.className = 'hint';
+  hintText.innerHTML = 'Hint: <b>Lorem ipsum dolor sit amet</b>';
   const guessesText = document.createElement('h4');
   guessesText.textContent = 'Incorrect guesses: 0 / 6';
   gameBox.append(wordDisplay, hintText, guessesText);
@@ -69,3 +67,13 @@ function createModal() {
 }
 
 createModal();
+
+const wordDisplay = document.querySelector('.word-display');
+
+const getRandomWord = () => {
+  const { word, hint } = wordList[Math.floor(Math.random() * wordList.length)];
+  document.querySelector('.hint b').textContent = hint;
+  wordDisplay.innerHTML = word.split('').map(() => `<li class="letter"></li>`).join('');
+}
+
+getRandomWord();
