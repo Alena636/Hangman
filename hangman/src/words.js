@@ -1,6 +1,6 @@
 const wordList = [
   {
-    word: "javaScript",
+    word: "javascript",
     hint: "A high-level programming language commonly used for web development"
   },
   {
@@ -20,7 +20,7 @@ const wordList = [
     hint: "An occurrence that can trigger the execution of JavaScript code"
   },
   {
-    word: "DOM",
+    word: "dom",
     hint: "A programming interface for web documents, representing the structure of a document as a tree in JavaScript"
   },
   {

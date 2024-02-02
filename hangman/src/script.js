@@ -23,25 +23,41 @@ function createContainer() {
 
 createContainer();
 
+const wordDisplay = document.querySelector('.word-display');
+let currentWord;
+
+const getRandomWord = () => {
+  const { word, hint } = wordList[Math.floor(Math.random() * wordList.length)];
+  currentWord = word;
+  console.log(word);
+  document.querySelector('.hint b').textContent = hint;
+  wordDisplay.innerHTML = word.split('').map(() => `<li class="letter"></li>`).join('');
+}
+
+const initGame = (button, clickedLetter) => {
+  if(currentWord.includes(clickedLetter)) {
+    console.log(clickedLetter, "is exist")
+  } else {
+    console.log(clickedLetter, "is not exist")
+  }
+}
+
+getRandomWord();
+
 function createKeyboard() {
   const keyboard = document.createElement('div');
   keyboard.className = 'keyboard';
   const game = document.querySelector('.game-box');
   game.appendChild(keyboard);
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const letters = 'abcdefghijklmnopqrstuvwxyz';
 
   for (let i = 0; i < letters.length; i++) {
       const key = document.createElement('button');
       key.classList.add('key');
       key.textContent = letters[i];
-      key.addEventListener('click', function() {
-          handleKeyClick(letters[i]);
-      });
+      key.addEventListener('click', e => initGame(e.target, letters[i]));
       keyboard.appendChild(key);
   }
-  function handleKeyClick(letter) {
-    console.log('Нажата кнопка:', letter);
-}
 }
 
 createKeyboard();
@@ -67,13 +83,3 @@ function createModal() {
 }
 
 createModal();
-
-const wordDisplay = document.querySelector('.word-display');
-
-const getRandomWord = () => {
-  const { word, hint } = wordList[Math.floor(Math.random() * wordList.length)];
-  document.querySelector('.hint b').textContent = hint;
-  wordDisplay.innerHTML = word.split('').map(() => `<li class="letter"></li>`).join('');
-}
-
-getRandomWord();
