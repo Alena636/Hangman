@@ -16,7 +16,9 @@ function createContainer() {
   const guessesText = document.createElement('h4');
   guessesText.className = 'guesses-text';
   guessesText.innerHTML = 'Incorrect guesses: <b>0 / 6</b>';
-  gameBox.append(wordDisplay, hintText, guessesText);
+  const keyboard = document.createElement('div');
+  keyboard.className = 'keyboard';
+  gameBox.append(wordDisplay, hintText, guessesText, keyboard);
   hangmanBox.append(hangmanTitle);
   container.append(hangmanBox, gameBox);
   document.body.append(container);
@@ -46,20 +48,32 @@ createModal();
 
 const wordDisplay = document.querySelector('.word-display');
 let currentWord;
-let wrongGuessCount = 0;
+let wrongGuessCount;
 const maxGuesses = 6;
 const guessesText = document.querySelector('.guesses-text b');
 const hangmanImg = document.querySelector('.hangman-box img');
-let correctLetters = [];
+let correctLetters;
 
 const modal = document.querySelector('.modal');
+const btnPlayAgain = document.querySelector('.play-again');
+const keyboard = document.querySelector('.keyboard');
+
+const resetGame = () => {
+  correctLetters = [];
+  wrongGuessCount = 0;
+  keyboard.querySelectorAll('button').forEach(btn => btn.disabled = false);
+  hangmanImg.src = `assets/hangman-${wrongGuessCount}.svg`;
+  guessesText.innerText = `${wrongGuessCount} / ${maxGuesses}`;
+  wordDisplay.innerHTML = currentWord.split('').map(() => `<li class="letter"></li>`).join('');
+  modal.classList.remove('show');
+}
 
 const getRandomWord = () => {
   const { word, hint } = wordList[Math.floor(Math.random() * wordList.length)];
   currentWord = word;
   console.log(word);
   document.querySelector('.hint b').textContent = hint;
-  wordDisplay.innerHTML = word.split('').map(() => `<li class="letter"></li>`).join('');
+  resetGame();
 }
 
 const gameOver = (isVictory) => {
@@ -93,11 +107,9 @@ const initGame = (button, clickedLetter) => {
 
 getRandomWord();
 
+btnPlayAgain.addEventListener('click', getRandomWord);
+
 function createKeyboard() {
-  const keyboard = document.createElement('div');
-  keyboard.className = 'keyboard';
-  const game = document.querySelector('.game-box');
-  game.appendChild(keyboard);
   const letters = 'abcdefghijklmnopqrstuvwxyz';
 
   for (let i = 0; i < letters.length; i++) {
@@ -110,4 +122,3 @@ function createKeyboard() {
 }
 
 createKeyboard();
-
