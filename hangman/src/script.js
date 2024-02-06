@@ -14,7 +14,8 @@ function createContainer() {
   hintText.className = 'hint';
   hintText.innerHTML = 'Hint: <b>Lorem ipsum dolor sit amet</b>';
   const guessesText = document.createElement('h4');
-  guessesText.textContent = 'Incorrect guesses: 0 / 6';
+  guessesText.className = 'guesses-text';
+  guessesText.innerHTML = 'Incorrect guesses: <b>0 / 6</b>';
   gameBox.append(wordDisplay, hintText, guessesText);
   hangmanBox.append(hangmanTitle);
   container.append(hangmanBox, gameBox);
@@ -25,6 +26,9 @@ createContainer();
 
 const wordDisplay = document.querySelector('.word-display');
 let currentWord;
+let wrongGuessCount = 0;
+const maxGuesses = 6;
+const guessesText = document.querySelector('.guesses-text b');
 
 const getRandomWord = () => {
   const { word, hint } = wordList[Math.floor(Math.random() * wordList.length)];
@@ -36,10 +40,16 @@ const getRandomWord = () => {
 
 const initGame = (button, clickedLetter) => {
   if(currentWord.includes(clickedLetter)) {
-    console.log(clickedLetter, "is exist")
+    [...currentWord].forEach((letter, index) => {
+      if(letter === clickedLetter) {
+        wordDisplay.querySelectorAll('li')[index].innerText = letter;
+        wordDisplay.querySelectorAll('li')[index].classList.add('guessed');
+      }
+    })
   } else {
-    console.log(clickedLetter, "is not exist")
+    wrongGuessCount++;
   }
+  guessesText.innerText = `${wrongGuessCount} / ${maxGuesses}`;
 }
 
 getRandomWord();

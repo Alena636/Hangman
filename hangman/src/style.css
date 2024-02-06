@@ -59,9 +59,9 @@ img {
   text-align: center;
 }
 
-.letter.guessed {
+.guessed {
+  border-bottom: none;
   border-color: transparent;
-  margin: -40px 0 35px;
 }
 
 h4 {
