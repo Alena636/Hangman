@@ -24,12 +24,35 @@ function createContainer() {
 
 createContainer();
 
+function createModal() {
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  const content = document.createElement('div');
+  content.className = 'content';
+  content.innerHTML = '<img src="assets/lost.gif" alt="gif" />';
+  const modalTitle = document.createElement('h4');
+  modalTitle.className = 'modal-title';
+  const modalDescription = document.createElement('p');
+  modalDescription.className = 'modal-description';
+  const btnPlayAgain = document.createElement('button');
+  btnPlayAgain.className = 'play-again';
+  btnPlayAgain.textContent = 'Play Again';
+  content.append(modalTitle, modalDescription, btnPlayAgain);
+  modal.append(content);
+  document.body.append(modal);
+}
+
+createModal();
+
 const wordDisplay = document.querySelector('.word-display');
 let currentWord;
 let wrongGuessCount = 0;
 const maxGuesses = 6;
 const guessesText = document.querySelector('.guesses-text b');
 const hangmanImg = document.querySelector('.hangman-box img');
+let correctLetters = [];
+
+const modal = document.querySelector('.modal');
 
 const getRandomWord = () => {
   const { word, hint } = wordList[Math.floor(Math.random() * wordList.length)];
@@ -39,10 +62,20 @@ const getRandomWord = () => {
   wordDisplay.innerHTML = word.split('').map(() => `<li class="letter"></li>`).join('');
 }
 
+const gameOver = (isVictory) => {
+  setTimeout(() => {
+    modal.querySelector('.modal-description').innerHTML = isVictory ? `You found the word: <b>${currentWord}</b>` : `The correct word is <b>${currentWord}</b>`;
+    modal.querySelector('img').src = `assets/${isVictory ? 'victory' : 'lost'}.gif`;
+    modal.querySelector('.modal-title').textContent = `${isVictory ? 'Congrats!' : 'Game Over!'}`;
+    modal.classList.add('show');
+  }, 300);
+}
+
 const initGame = (button, clickedLetter) => {
   if(currentWord.includes(clickedLetter)) {
     [...currentWord].forEach((letter, index) => {
       if(letter === clickedLetter) {
+        correctLetters.push(letter);
         wordDisplay.querySelectorAll('li')[index].innerText = letter;
         wordDisplay.querySelectorAll('li')[index].classList.add('guessed');
       }
@@ -53,6 +86,9 @@ const initGame = (button, clickedLetter) => {
   }
   button.disabled = true;
   guessesText.innerText = `${wrongGuessCount} / ${maxGuesses}`;
+
+  if(wrongGuessCount === maxGuesses) return gameOver(false);
+  if(correctLetters.length === currentWord.length) return gameOver(true);
 }
 
 getRandomWord();
@@ -75,24 +111,3 @@ function createKeyboard() {
 
 createKeyboard();
 
-function createModal() {
-  const modal = document.createElement('div');
-  modal.className = 'modal';
-  const content = document.createElement('div');
-  content.className = 'content';
-  content.innerHTML = '<img src="assets/lost.gif" alt="gif" />';
-  const modalTitle = document.createElement('h4');
-  modalTitle.textContent = 'Game Over!';
-  modalTitle.className = 'modal-title';
-  const modalDescription = document.createElement('p');
-  modalDescription.textContent = 'The correct word is: qwerty';
-  modalDescription.className = 'modal-description';
-  const btnPlayAgain = document.createElement('button');
-  btnPlayAgain.className = 'play-again';
-  btnPlayAgain.textContent = 'Play Again';
-  content.append(modalTitle, modalDescription, btnPlayAgain);
-  modal.append(content);
-  document.body.append(modal);
-}
-
-createModal();
