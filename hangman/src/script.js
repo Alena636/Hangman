@@ -29,6 +29,7 @@ let currentWord;
 let wrongGuessCount = 0;
 const maxGuesses = 6;
 const guessesText = document.querySelector('.guesses-text b');
+const hangmanImg = document.querySelector('.hangman-box img');
 
 const getRandomWord = () => {
   const { word, hint } = wordList[Math.floor(Math.random() * wordList.length)];
@@ -48,7 +49,9 @@ const initGame = (button, clickedLetter) => {
     })
   } else {
     wrongGuessCount++;
+    hangmanImg.src = `assets/hangman-${wrongGuessCount}.svg`;
   }
+  button.disabled = true;
   guessesText.innerText = `${wrongGuessCount} / ${maxGuesses}`;
 }
 
