@@ -1,0 +1,170 @@
+/*minimal css reset */
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  height: 100vh;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rem;
+}
+
+.hangman-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  text-transform: uppercase;
+}
+
+.game-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.1rem;
+  font-size: 1.2rem;
+}
+
+.word-display {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+
+.letter {
+  width: 2rem;
+  height: 2.1rem;
+  border-bottom: 3px solid black;
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.guessed {
+  border-bottom: none;
+  border-color: transparent;
+}
+
+h4 {
+  text-align: center;
+}
+
+.keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+}
+
+.keyboard button {
+  cursor: pointer;
+  font-size: 1rem;
+  text-transform: uppercase;
+  outline: none;
+  border-radius: 4px;
+  border: none;
+  padding: 7px;
+  width: calc(100% / 9 - 5px);
+}
+
+.keyboard button:disabled {
+  cursor: default;
+}
+
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .4s ease;
+}
+
+.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal img {
+  max-width: 130px;
+  margin-bottom: 2rem;
+}
+
+.content {
+  background-color: white;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.modal-description {
+  font-size: 1.1rem;
+  margin: 15px 0 30px;
+}
+
+.play-again {
+  padding: 1rem 1.4rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: .7s;
+}
+
+.play-again:hover {
+  background-color: darkgray;
+}
+
+@media (max-width: 782px) {
+  .container {
+    flex-direction: column;
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    display: none;
+  }
+
+  .hangman-box img {
+    max-width: 200px;
+  }
+
+  .word-display {
+    align-items: center;
+    justify-content: center;
+  }
+}
